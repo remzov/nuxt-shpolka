@@ -1,4 +1,29 @@
+// const resolve = require('path').resolve
+
+// const isVueRule = (rule) => {
+//   return rule.test.toString() === '/\\.vue$/'
+// }
+// const isSASSRule = (rule) => {
+//   return ['/\\.sass$/', '/\\.scss$/'].indexOf(rule.test.toString()) !== -1
+// }
+// const sassResourcesLoader = {
+//   loader: 'sass-resources-loader',
+//   options: {
+//     resources: [
+//       resolve(__dirname, 'assets/styles/constants.sass')
+//     ]
+//   }
+// }
+
 export default {
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:8000'
+  },
+
+  server: {
+    port: 8000
+  },
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'nuxt-shpolka',
@@ -14,10 +39,13 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    'normalize.css',
+    '~/assets/styles/main.scss',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    '~/plugins/progress-bar/index.js'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -33,9 +61,19 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
+    '@nuxtjs/svg-sprite',
+    '@nuxtjs/style-resources',
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+  },
+
+  svgSprite: {
+    input: '~/assets/svg/'
+  },
+
+  styleResources: {
+    scss: ['~/assets/styles/constants.scss', '~/assets/styles/mixins.scss']
   }
 }

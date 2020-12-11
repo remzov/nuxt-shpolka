@@ -1,0 +1,28 @@
+@import "./constants.scss";
+
+body {
+  font-family: $font-family-default, serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: $color-primary;
+  background-color: $color-beige;
+}
+
+a {
+  color: $color-decor;
+  text-decoration: none;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 850px;
+  padding: 0 $container-padding-mobile;
+}
+
+.page-title {
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: 32px;
+  line-height: 1.6;
+  color: $color-primary;
+}

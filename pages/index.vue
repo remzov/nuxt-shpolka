@@ -1,75 +1,89 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        nuxt-shpolka
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+  <div v-if="homePage" class="v-home">
+    <h1 class="v-home__title page-title">{{homePage.title}}</h1>
+    <div class="v-home__desc" v-html="homePage.desc"></div>
+
+    <blockquote
+      class="v-home__blockquote"
+      :style="`background-image: url('${homePage.quoteBackgroundImage}')`"
+    >
+      <span class="v-home__blockquote-text">
+        {{homePage.quote}}
+        <cite class="v-home__blockquote-author">{{homePage.quoteAuthor}}</cite>
+      </span>
+    </blockquote>
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
+export default {
+  async fetch() {
+    this.homePage = await fetch(
+      `${process.env.baseUrl}/data/homePage.json`
+    )
+    .then(res => res.json());
+  },
 
-export default Vue.extend({})
+  data() {
+    return {
+      homePage: {}
+    }
+  }
+};
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<style lang="scss">
+@import '~/assets/styles/constants.scss';
 
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+.v-home {
+  padding-top: 100px;
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
+  &__title {
+    margin-bottom: 24px;
+  }
 
-.links {
-  padding-top: 15px;
+  &__desc {
+    margin-bottom: 24px;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  &__blockquote {
+    margin-left: -$container-padding-mobile;
+    margin-right: -$container-padding-mobile;
+    padding: 36px $container-padding-mobile;
+    position: relative;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: $font-family-accident;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: $color-white;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba($color-black, 0.8);
+    }
+  }
+
+  &__blockquote-text {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__blockquote-author {
+    margin-top: 16px;
+    display: block;
+    text-align: right;
+    font-size: 26px;
+  }
 }
 </style>

@@ -1,0 +1,112 @@
+<template>
+  <article class="c-book-card">
+    <div class="c-book-card__img-container">
+      <img
+        class="c-book-card__img"
+        :src="image.url"
+        :alt="imageAlt || ' '"
+      >
+    </div>
+    <div class="c-book-card__desc">
+      <nuxt-link
+        class="c-book-card__link"
+        :to="{name: 'book', params: {book: id}}"
+      >
+        <h2 class="c-book-card__title" v-if="title">{{title}}</h2>
+      </nuxt-link>
+      <div class="c-book-card__info">
+        <nuxt-link
+          v-if="author.id && author.name"
+          class="c-book-card__link"
+          :to="{name: 'author', params: {author: author.id}}"
+        >
+          {{author.name}},
+        </nuxt-link>
+        {{year}}
+      </div>
+    </div>
+  </article>
+</template>
+
+<script>
+export default {
+  props: {
+    id: {
+      type: Number,
+      required: true,
+    },
+
+    title: {
+      type: String,
+      required: true,
+      default: '',
+    },
+
+    author: {
+      type: [Object, Number],
+      required: false,
+    },
+
+    year: {
+      type: Number,
+      required: true,
+    },
+
+    image: {
+      type: Object,
+      required: true,
+    },
+
+    imageAlt: {
+      type: String,
+      required: true,
+      default: ' ',
+    },
+  },
+
+  inheritAttrs: false,
+};
+</script>
+
+<style lang="scss">
+@import '~/assets/styles/constants.scss';
+
+.c-book-card {
+  display: flex;
+  padding: 24px 0;
+  border-bottom: 1px solid $color-primary;
+
+  &__img-container {
+    margin-right: 16px;
+    flex: 0 0 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+
+  &__link {
+    text-decoration: none;
+  }
+
+  &__title {
+    margin-bottom: 8px;
+    font-family: $font-family-accident;
+    font-size: 22px;
+    line-height: 1.4;
+    color: $color-primary;
+  }
+
+  &__info {
+    font-size: 14px;
+    line-height: 20px;
+    color: $color-gray;
+  }
+}
+</style>
