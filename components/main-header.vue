@@ -22,10 +22,26 @@
           </ul>
         </transition>
 
-        <button class="c-main-header__toggler" type="button" @click="toggleMenu">
-          <svg-icon class="c-main-header__menu-icon" name="menu"/>
-          <svg-icon class="c-main-header__close-icon" name="close"/>
-        </button>
+        <div class="c-main-header__togglers-wrapper">
+          <button
+            class="c-main-header__user-toggler"
+            type="button"
+            @click="showLoginModal"
+            aria-label="User modal"
+          >
+            <svg-icon class="c-main-header__menu-icon" name="user"/>
+          </button>
+
+          <button
+            class="c-main-header__menu-toggler"
+            type="button"
+            @click="toggleMenu"
+            aria-label="Toggle menu"
+          >
+            <svg-icon class="c-main-header__menu-icon" name="menu"/>
+            <svg-icon class="c-main-header__close-icon" name="close"/>
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -48,6 +64,13 @@ export default {
     toggleMenu() {
       this.isMenuActive = !this.isMenuActive;
     },
+
+    showLoginModal() {
+      this.$store.commit('toggleModal', {
+        name: 'loginModal',
+        value: true
+      })
+    }
   },
 
   data() {
@@ -131,7 +154,13 @@ export default {
     }
   }
 
-  &__toggler {
+  &__togglers-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__menu-toggler {
     @include reset-btn;
 
     position: relative;
@@ -152,6 +181,15 @@ export default {
         }
       }
     }
+  }
+
+  &__user-toggler {
+    @include reset-btn;
+
+    position: relative;
+    z-index: 2;
+    width: 30px;
+    height: 30px;
   }
 
   &__menu-icon {
