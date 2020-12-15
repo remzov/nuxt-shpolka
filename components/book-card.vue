@@ -1,31 +1,24 @@
-<template>
-  <article class="c-book-card">
-    <div class="c-book-card__img-container">
-      <img
+<template lang="pug">
+  article.c-book-card
+    .c-book-card__img-container
+      img(
         class="c-book-card__img"
         :src="image.url"
         :alt="imageAlt || ' '"
-      >
-    </div>
-    <div class="c-book-card__desc">
-      <nuxt-link
-        class="c-book-card__link"
+      )
+    .c-book-card__desc
+      nuxt-link.c-book-card__link(
         :to="{name: 'book', params: {book: id}}"
-      >
-        <h2 class="c-book-card__title" v-if="title">{{title}}</h2>
-      </nuxt-link>
-      <div class="c-book-card__info">
-        <nuxt-link
+      )
+        h2.c-book-card__title(v-if="title") {{title}}
+      .c-book-card__info
+        nuxt-link(
           v-if="author.id && author.name"
           class="c-book-card__link"
           :to="{name: 'author', params: {author: author.id}}"
-        >
-          {{author.name}},
-        </nuxt-link>
-        {{year}}
-      </div>
-    </div>
-  </article>
+        )
+        | {{author.name}},
+        | {{year}}
 </template>
 
 <script>

@@ -1,74 +1,48 @@
-<template>
-  <main v-if="booksPage" class="v-books">
-    <h1 class="page-title">{{booksPage.title}}</h1>
-    <div class="v-books__desc">{{booksPage.desc}}</div>
+<template lang="pug">
+  main(v-if="booksPage" class="v-books")
+    h1.page-title {{booksPage.title}}
+    .v-books__desc {{booksPage.desc}}
 
-    <div class="v-books__sort">
-      <button
-        class="v-books__sort-toggler"
+    .v-books__sort
+      button.v-books__sort-toggler(
         :class="{'v-books__sort-toggler_state_active': isSortActive}"
         type="button"
         @click="toggleSort"
-      >
-        Сортировать
-        <svg-icon class="v-books__sort-toggler-icon" name="dropdown"/>
-      </button>
+      )
+        | Сортировать
+        svg-icon(class="v-books__sort-toggler-icon" name="dropdown")
 
-      <div class="v-books__panel" v-show="isSortActive">
-        <button
-          class="v-books__sort-btn"
-          :class="{
-            'v-books__sort-btn_state_asc': (sortType === 'title') && (sortDirection === 'asc'),
-            'v-books__sort-btn_state_desc': (sortType === 'title') && (sortDirection === 'desc')
-          }"
+      .v-books__panel(v-show="isSortActive")
+        button.v-books__sort-btn(
+          :class="sortTitleClasses"
           type="button"
           @click="sortBy('title')"
-        >
-          По названию
-          <svg-icon class="v-books__sort-btn-icon" name="sort"/>
-        </button>
+        )
+          | По названию
+          svg-icon(class="v-books__sort-btn-icon" name="sort")
 
-        <button
-          class="v-books__sort-btn"
-          :class="{
-            'v-books__sort-btn_state_asc': (sortType === 'author.name')
-              && (sortDirection === 'asc'),
-            'v-books__sort-btn_state_desc': (sortType === 'author.name')
-              && (sortDirection === 'desc')
-          }"
+        button.v-books__sort-btn(
+          :class="sortAuthorClasses"
           type="button"
           @click="sortBy('author.name')"
-        >
-          По автору
-          <svg-icon class="v-books__sort-btn-icon" name="sort"/>
-        </button>
+        )
+          | По автору
+          svg-icon(class="v-books__sort-btn-icon" name="sort")
 
-        <button
-          class="v-books__sort-btn"
-          :class="{
-            'v-books__sort-btn_state_asc': (sortType === 'year') && (sortDirection === 'asc'),
-            'v-books__sort-btn_state_desc': (sortType === 'year') && (sortDirection === 'desc')
-          }"
+        button.v-books__sort-btn(
+          :class="sortYearClasses"
           type="button"
           @click="sortBy('year')"
-        >
-          По хронологии
-          <svg-icon class="v-books__sort-btn-icon" name="sort"/>
-        </button>
-      </div>
-    </div>
+        )
+          |По хронологии
+          svg-icon(class="v-books__sort-btn-icon" name="sort")
 
-    <div class="v-books__grid">
-      <div
+    .v-books__grid
+      div(
         v-for="(item, index) in books"
         :key="`books-${item}-${index}`"
-      >
-        <c-book-card
-          v-bind="item"
-        />
-      </div>
-    </div>
-  </main>
+      )
+        c-book-card(v-bind="item")
 </template>
 
 <script>
@@ -99,6 +73,29 @@ export default {
       sortType: null,
       sortDirection: null,
     };
+  },
+
+  computed: {
+    sortTitleClasses() {
+      return {
+        'v-books__sort-btn_state_asc': (this.sortType === 'title') && (this.sortDirection === 'asc'),
+        'v-books__sort-btn_state_desc': (this.sortType === 'title') && (this.sortDirection === 'desc')
+      }
+    },
+
+    sortAuthorClasses() {
+      return  {
+        'v-books__sort-btn_state_asc': (this.sortType === 'author.name') && (this.sortDirection === 'asc'),
+        'v-books__sort-btn_state_desc': (this.sortType === 'author.name') && (this.sortDirection === 'desc')
+      }
+    },
+
+    sortYearClasses() {
+      return {
+        'v-books__sort-btn_state_asc': (this.sortType === 'year') && (this.sortDirection === 'asc'),
+        'v-books__sort-btn_state_desc': (this.sortType === 'year') && (this.sortDirection === 'desc')
+      }
+    }
   },
 
   methods: {

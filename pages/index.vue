@@ -1,18 +1,12 @@
-<template>
-  <div v-if="homePage" class="v-home">
-    <h1 class="v-home__title page-title">{{homePage.title}}</h1>
-    <div class="v-home__desc" v-html="homePage.desc"></div>
+<template lang="pug">
+  .v-home(v-if="homePage")
+    h1.v-home__title.page-title {{homePage.title}}
+    .v-home__desc(v-html="homePage.desc")
 
-    <blockquote
-      class="v-home__blockquote"
-      :style="`background-image: url('${homePage.quoteBackgroundImage}')`"
-    >
-      <span class="v-home__blockquote-text">
-        {{homePage.quote}}
-        <cite class="v-home__blockquote-author">{{homePage.quoteAuthor}}</cite>
-      </span>
-    </blockquote>
-  </div>
+    blockquote.v-home__blockquote(style="`background-image: url('${homePage.quoteBackgroundImage}')`")
+      span.v-home__blockquote-text
+        | {{homePage.quote}}
+        cite.v-home__blockquote-author {{homePage.quoteAuthor}}
 </template>
 
 <script>

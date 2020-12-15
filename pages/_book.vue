@@ -1,37 +1,30 @@
-<template>
-  <main>
-    <article v-if="book" class="v-book" v-progress-bar>
-      <div class="container">
-        <div class="v-book__wrapper">
-          <div class="v-book__img-container">
-            <img
+<template lang="pug">
+  main
+    article.v-book(
+      v-if="book"
+      v-progress-bar
+    )
+      .container
+        .v-book__wrapper
+          .v-book__img-container
+            img.c-book-card__img(
               v-if="book.image"
-              class="c-book-card__img"
               :src="book.image.url"
               :alt="book.imageAlt || ' '"
-            >
-          </div>
-          <h1 class="page-title" v-if="book.title">{{book.title}}</h1>
-          <nuxt-link
+            )
+          h1.page-title(v-if="book.title") {{book.title}}
+          nuxt-link.v-book__author(
             v-if="book.author"
-            class="v-book__author"
             :to="{name: 'author', params: {author: book.author.id}}"
-          >
-            {{book.author.name}}
-          </nuxt-link>
-          <div class="v-book__text"
+          ) {{book.author.name}}
+          .v-book__text(
             v-if="book.text"
-            v-html="book.text">
-          </div>
-        </div>
-        <a class="v-book__back" href="#" @click.prevent="routeBack">
-          <svg-icon class="v-book__back-icon" name="arrow-left"/>
-          Назад
-        </a>
-      </div>
-      <div class="v-book__progress" data-progress-bar aria-hidden></div>
-    </article>
-  </main>
+            v-html="book.text"
+          )
+        a.v-book__back(href="#" @click.prevent="routeBack")
+          svg-icon.v-book__back-icon(name="arrow-left")
+          | Назад
+      .v-book__progress(data-progress-bar aria-hidden)
 </template>
 
 <script>

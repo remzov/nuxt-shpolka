@@ -1,18 +1,16 @@
-<template>
-  <main v-if="author" class="v-author">
-    <h1 v-if="author.name" class="page-title">{{ author.name }}</h1>
-    <div
+<template lang="pug">
+  main(v-if="author" class="v-author")
+    h1.page-title(v-if="author.name") {{ author.name }}
+    .v-author__text(
       v-if="author.desc"
-      class="v-author__text"
-      v-html="author.desc"  />
-    <ul class="v-author__list">
-      <li
+      v-html="author.desc"
+    )
+    ul.v-author__list
+      li(
         v-for="(item, index) in author.books"
-        :key="`books-${item}-${index}`">
-        <c-book-card v-bind="item" />
-      </li>
-    </ul>
-  </main>
+        :key="`books-${item}-${index}`"
+      )
+        c-book-card(v-bind="item")
 </template>
 
 <script>

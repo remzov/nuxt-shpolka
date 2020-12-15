@@ -1,50 +1,39 @@
-<template>
-  <header class="c-main-header" :class="{'c-main-header_state_active': isMenuActive}">
-    <div class="container">
-      <div class="c-main-header__wrapper">
-        <nuxt-link to="/" class="c-main-header__title-link">Шполка</nuxt-link>
+<template lang="pug">
+  header.c-main-header(:class="{'c-main-header_state_active': isMenuActive}")
+    .container
+      .c-main-header__wrapper
+        nuxt-link(to="/" class="c-main-header__title-link") Шполка
 
-        <transition name="showing">
-          <ul class="c-main-header__list" v-show="isMenuActive">
-            <li
+        transition(name="showing")
+          ul.c-main-header__list(v-show="isMenuActive")
+            li(
               v-for="(item, index) in menu"
               :key="`menu-${item}-${index}`"
               class="c-main-header__item"
-            >
-              <nuxt-link
+            )
+              nuxt-link(
                 :to="item.to"
                 class="c-main-header__link"
                 @click.native="closeMenu"
-              >
-                {{item.text}}
-              </nuxt-link>
-            </li>
-          </ul>
-        </transition>
+              ) {{item.text}}
 
-        <div class="c-main-header__togglers-wrapper">
-          <button
+        .c-main-header__togglers-wrapper
+          button(
             class="c-main-header__user-toggler"
             type="button"
             @click="showLoginModal"
             aria-label="User modal"
-          >
-            <svg-icon class="c-main-header__menu-icon" name="user"/>
-          </button>
+          )
+            svg-icon.c-main-header__menu-icon(name="user")
 
-          <button
+          button(
             class="c-main-header__menu-toggler"
             type="button"
             @click="toggleMenu"
             aria-label="Toggle menu"
-          >
-            <svg-icon class="c-main-header__menu-icon" name="menu"/>
-            <svg-icon class="c-main-header__close-icon" name="close"/>
-          </button>
-        </div>
-      </div>
-    </div>
-  </header>
+          )
+            svg-icon.c-main-header__menu-icon(name="menu")
+            svg-icon.c-main-header__close-icon(name="close")
 </template>
 
 <script>

@@ -1,27 +1,20 @@
-<template>
-  <modal name="loginModal">
-    <div class="modal-login">
-      <h2 class="modal-login__title">Вход</h2>
-      <input
-        class="modal-login__input"
+<template lang="pug">
+  modal(name="loginModal")
+    .modal-login
+      h2.modal-login__title Вход
+      input.modal-login__input(
         type="email"
         required="true"
         placeholder="e-mail"
-      />
-      <input
-        class="modal-login__input"
+      )
+      input.modal-login__input(
         type="password"
         required="true"
         placeholder="пароль"
-      />
-      <button
-        class="modal-login__submit"
+      )
+      button.modal-login__submit(
         type="submit"
-      >
-        Вход
-      </button>
-    </div>
-  </modal>
+      ) Вход
 </template>
 
 <script>

@@ -1,22 +1,16 @@
-<template>
-  <main v-if="authorsPage" class="v-authors">
-    <h1 class="page-title" v-if="authorsPage.title">{{authorsPage.title}}</h1>
-    <div class="v-authors__desc" v-if="authorsPage.desc">{{authorsPage.desc}}</div>
+<template lang="pug">
+  main.v-authors(v-if="authorsPage")
+    h1.page-title(v-if="authorsPage.title") {{authorsPage.title}}
+    .v-authors__desc(v-if="authorsPage.desc") {{authorsPage.desc}}
 
-    <ul class="v-books__list">
-      <li
+    ul.v-books__list
+      li.v-authors__item(
         v-for="(item, index) in authors"
         :key="`authors-${item}-${index}`"
-        class="v-authors__item"
-      >
-        <nuxt-link
+      )
+        nuxt-link.v-authors__link(
           :to="{name: 'author', params: {author: item.id}}"
-          class="v-authors__link">
-          {{item.name}}
-        </nuxt-link>
-      </li>
-    </ul>
-  </main>
+        ) {{item.name}}
 </template>
 
 <script>

@@ -1,13 +1,11 @@
-<template>
-  <vue-modal
+<template lang="pug">
+  vue-modal(
     v-model="isShown"
     :wrapperClass="'modal'"
-  >
-    <slot/>
-    <button class="modal__closer" type="submit" @click="isShown = false">
-      <svg-icon class="modal__closer-icon" name="close"/>
-    </button>
-  </vue-modal>
+  )
+    slot
+    button.modal__closer(type="submit" @click="isShown = false")
+      svg-icon.modal__closer-icon(name="close")
 </template>
 
 <script>
@@ -31,7 +29,6 @@ export default {
         return this.$store.state[this.name];
       },
       set (value) {
-        console.log(value);
         this.$store.commit('toggleModal', {
           name: this.name,
           value
