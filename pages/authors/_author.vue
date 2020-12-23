@@ -1,6 +1,6 @@
 <template lang="pug">
   main(v-if="author" class="v-author")
-    h1.page-title(v-if="author.name") {{ author.name }}
+    page-header(:title="author.name")
     .v-author__text(
       v-if="author.desc"
       v-html="author.desc"
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import pageHeader from '~/components/page-header';
 import CBookCard from "~/components/book-card.vue";
 
 export default {
@@ -24,7 +25,8 @@ export default {
   },
 
   components: {
-    CBookCard
+    CBookCard,
+    pageHeader
   },
 
   data() {

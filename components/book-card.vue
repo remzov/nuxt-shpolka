@@ -8,16 +8,15 @@
       )
     .c-book-card__desc
       nuxt-link.c-book-card__link(
-        :to="{name: 'book', params: {book: id}}"
+        :to="{name: 'books-book', params: {book: id}}"
       )
         h2.c-book-card__title(v-if="title") {{title}}
       .c-book-card__info
         nuxt-link(
           v-if="author.id && author.name"
           class="c-book-card__link"
-          :to="{name: 'author', params: {author: author.id}}"
-        )
-        | {{author.name}},
+          :to="{name: 'authors-author', params: {author: author.id}}"
+        ) {{author.name}},&nbsp;
         | {{year}}
 </template>
 

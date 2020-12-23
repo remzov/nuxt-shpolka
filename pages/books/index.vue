@@ -1,7 +1,9 @@
 <template lang="pug">
   main(v-if="booksPage" class="v-books")
-    h1.page-title {{booksPage.title}}
-    .v-books__desc {{booksPage.desc}}
+    page-header(
+      :title="booksPage.title"
+      :desc="booksPage.desc"
+    )
 
     .v-books__sort
       button.v-books__sort-toggler(
@@ -46,6 +48,7 @@
 </template>
 
 <script>
+import pageHeader from '~/components/page-header';
 import CBookCard from '~/components/book-card.vue';
 
 export default {
@@ -63,6 +66,7 @@ export default {
 
   components: {
     CBookCard,
+    pageHeader
   },
 
   data() {
@@ -141,19 +145,13 @@ export default {
       let sortFunction = this.sortDirection === 'asc' ? sortAsc : sortDesc;
       this.books = this.books.sort((a, b) => sortFunction(getField(a, type), getField(b, type)))
     }
-  },
+  }
 };
 </script>
 
 <style lang="scss">
 .v-books {
   padding: 80px 0;
-
-  &__desc {
-    margin-bottom: 24px;
-    text-align: center;
-    line-height: 1.6;
-  }
 
   &__sort {
     position: relative;

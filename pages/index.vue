@@ -1,15 +1,20 @@
 <template lang="pug">
   .v-home(v-if="homePage")
-    h1.v-home__title.page-title {{homePage.title}}
-    .v-home__desc(v-html="homePage.desc")
-
-    blockquote.v-home__blockquote(style="`background-image: url('${homePage.quoteBackgroundImage}')`")
+    page-header(
+      :title="homePage.title"
+      :desc="homePage.desc"
+    )
+    blockquote.v-home__blockquote(
+      :style="`background-image: url('${homePage.quoteBackgroundImage}')`"
+    )
       span.v-home__blockquote-text
         | {{homePage.quote}}
         cite.v-home__blockquote-author {{homePage.quoteAuthor}}
 </template>
 
 <script>
+import pageHeader from '~/components/page-header';
+
 export default {
   async fetch() {
     this.homePage = await fetch(
@@ -22,25 +27,17 @@ export default {
     return {
       homePage: {}
     }
+  },
+
+  components: {
+    pageHeader
   }
 };
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/constants.scss';
-
 .v-home {
   padding-top: 100px;
-
-  &__title {
-    margin-bottom: 24px;
-  }
-
-  &__desc {
-    margin-bottom: 24px;
-    font-size: 18px;
-    line-height: 1.6;
-  }
 
   &__blockquote {
     margin-left: -$container-padding-mobile;

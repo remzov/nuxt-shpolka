@@ -1,7 +1,9 @@
 <template lang="pug">
   main.v-authors(v-if="authorsPage")
-    h1.page-title(v-if="authorsPage.title") {{authorsPage.title}}
-    .v-authors__desc(v-if="authorsPage.desc") {{authorsPage.desc}}
+    page-header(
+      :title="authorsPage.title"
+      :desc="authorsPage.desc"
+    )
 
     ul.v-books__list
       li.v-authors__item(
@@ -9,11 +11,13 @@
         :key="`authors-${item}-${index}`"
       )
         nuxt-link.v-authors__link(
-          :to="{name: 'author', params: {author: item.id}}"
+          :to="{name: 'authors-author', params: {author: item.id}}"
         ) {{item.name}}
 </template>
 
 <script>
+import pageHeader from '~/components/page-header';
+
 export default {
   async fetch() {
     this.authorsPage = await fetch(
@@ -33,6 +37,10 @@ export default {
       authorsPage: {},
       authors: {}
     }
+  },
+
+  components: {
+    pageHeader
   }
 }
 </script>
@@ -40,12 +48,6 @@ export default {
 <style lang="scss">
 .v-authors {
   padding: 80px 0;
-
-  &__desc {
-    margin-bottom: 24px;
-    text-align: center;
-    line-height: 1.6;
-  }
 
   &__item {
     &:not(:last-child) {

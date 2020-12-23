@@ -12,10 +12,10 @@
               :src="book.image.url"
               :alt="book.imageAlt || ' '"
             )
-          h1.page-title(v-if="book.title") {{book.title}}
+          page-header(:title="book.title")
           nuxt-link.v-book__author(
             v-if="book.author"
-            :to="{name: 'author', params: {author: book.author.id}}"
+            :to="{name: 'authors-author', params: {author: book.author.id}}"
           ) {{book.author.name}}
           .v-book__text(
             v-if="book.text"
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import pageHeader from '~/components/page-header';
+
 export default {
   async fetch() {
     this.book = await fetch(
@@ -46,6 +48,10 @@ export default {
     routeBack() {
       this.$router.back();
     },
+  },
+
+  components: {
+    pageHeader
   }
 };
 </script>

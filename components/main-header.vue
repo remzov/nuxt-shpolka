@@ -42,7 +42,7 @@ export default {
     this.menu = await fetch(
       `${process.env.baseUrl}/data/menu.json`
     )
-    .then(res => res.json());
+    .then(res => res.json())
   },
 
   methods: {
@@ -67,14 +67,11 @@ export default {
       menu: {},
       isMenuActive: false,
     };
-  },
+  }
 };
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/constants.scss';
-@import '~/assets/styles/mixins.scss';
-
 .c-main-header {
   position: absolute;
   top: 0;
