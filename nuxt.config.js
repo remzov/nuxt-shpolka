@@ -1,20 +1,3 @@
-// const resolve = require('path').resolve
-
-// const isVueRule = (rule) => {
-//   return rule.test.toString() === '/\\.vue$/'
-// }
-// const isSASSRule = (rule) => {
-//   return ['/\\.sass$/', '/\\.scss$/'].indexOf(rule.test.toString()) !== -1
-// }
-// const sassResourcesLoader = {
-//   loader: 'sass-resources-loader',
-//   options: {
-//     resources: [
-//       resolve(__dirname, 'assets/styles/constants.sass')
-//     ]
-//   }
-// }
-
 export default {
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:8000'
@@ -45,7 +28,8 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '~/plugins/progress-bar/index.js'
+    '~/plugins/progress-bar/index.js',
+    '~/plugins/vuelidate'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
