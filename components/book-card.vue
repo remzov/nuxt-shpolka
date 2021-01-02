@@ -18,9 +18,16 @@
           :to="{name: 'authors-author', params: {author: author.id}}"
         ) {{author.name}},&nbsp;
         | {{year}}
+
+    bookControl(
+      :bookId="id"
+      :isRemoveType="isUserPage"
+    )
 </template>
 
 <script>
+import bookControl from './book-control';
+
 export default {
   props: {
     id: {
@@ -54,6 +61,16 @@ export default {
       required: true,
       default: ' ',
     },
+
+    isUserPage: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+
+  components: {
+    bookControl
   },
 
   inheritAttrs: false,
@@ -61,10 +78,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/constants.scss';
-
 .c-book-card {
   display: flex;
+  align-items: center;
   padding: 24px 0;
   border-bottom: 1px solid $color-primary;
 
@@ -99,6 +115,10 @@ export default {
     font-size: 14px;
     line-height: 20px;
     color: $color-gray;
+  }
+
+  .c-book-control {
+    margin-left: auto;
   }
 }
 </style>

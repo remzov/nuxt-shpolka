@@ -2,32 +2,40 @@
   header.c-main-header(:class="{'c-main-header_state_active': isMenuActive}")
     .container
       .c-main-header__wrapper
-        nuxt-link(to="/" class="c-main-header__title-link") Шполка
+        nuxt-link.c-main-header__title-link(to="/") Шполка
 
         transition(name="showing")
-          ul.c-main-header__list(v-show="isMenuActive")
-            li(
-              v-for="(item, index) in menu"
-              :key="`menu-${item}-${index}`"
-              class="c-main-header__item"
-            )
-              nuxt-link(
-                :to="item.to"
-                class="c-main-header__link"
-                @click.native="closeMenu"
-              ) {{item.text}}
+          .c-main-header__list-wrapper(v-show="isMenuActive")
+            ul.c-main-header__list
+              li.c-main-header__item(
+                v-for="(item, index) in menu"
+                :key="`menu-${item}-${index}`"
+              )
+                nuxt-link.c-main-header__link(
+                  :to="item.to"
+                  @click.native="closeMenu"
+                ) {{item.text}}
 
         .c-main-header__togglers-wrapper
-          button(
-            class="c-main-header__user-toggler"
-            type="button"
-            @click="showLoginModal"
-            aria-label="User modal"
-          )
-            svg-icon.c-main-header__menu-icon(name="user")
+          template(v-if="!currentUser")
+            button.c-main-header__user-login(
+              type="button"
+              @click="showLoginModal"
+              aria-label="User modal"
+            )
+              svg-icon.c-main-header__menu-icon(name="user")
+          template(v-else-if="currentUser")
+            nuxt-link.c-main-header__user-account(
+              to="/user"
+            ) {{currentUser.name}}
+            button.c-main-header__user-logout(
+              type="button"
+              @click="logout"
+              aria-label="Logout"
+            )
+              svg-icon.c-main-header__user-logout(name="logout")
 
-          button(
-            class="c-main-header__menu-toggler"
+          button.c-main-header__menu-toggler(
             type="button"
             @click="toggleMenu"
             aria-label="Toggle menu"
@@ -37,6 +45,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   async fetch() {
     this.menu = await fetch(
@@ -59,6 +69,10 @@ export default {
         name: 'loginModal',
         value: true
       })
+    },
+
+    logout() {
+      this.$store.commit('logout')
     }
   },
 
@@ -67,6 +81,12 @@ export default {
       menu: {},
       isMenuActive: false,
     };
+  },
+
+  computed: {
+    ...mapGetters([
+      'currentUser'
+    ])
   }
 };
 </script>
@@ -109,15 +129,20 @@ export default {
     color: $color-primary;
   }
 
-  &__list {
+  &__list-wrapper {
     position: fixed;
     top: 0;
     left: 0;
     margin: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
-    padding: 80px 24px;
     background-color: $color-white;
+  }
+
+  &__list {
+    margin: 0 auto;
+    max-width: 570px;
+    padding: 80px 24px;
     list-style: none;
   }
 
@@ -169,13 +194,30 @@ export default {
     }
   }
 
-  &__user-toggler {
+  &__user-login {
     @include reset-btn;
 
     position: relative;
     z-index: 2;
     width: 30px;
     height: 30px;
+  }
+
+  &__user-account {
+    font-weight: 700;
+    color: $color-black;
+  }
+
+  &__user-logout {
+    @include reset-btn;
+
+    width: 30px;
+    height: 30px;
+  }
+
+  &__user-logout-icon {
+    width: 16px;
+    height: 16px;
   }
 
   &__menu-icon {

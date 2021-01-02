@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "email": "remzovnik@gmail.com",
+    "password": "111",
+    "name": "Nik",
+    "city": "Disneyland"
+  },
+  {
+    "id": 2,
+    "email": "shuro4ka@gmail.com",
+    "password": "222",
+    "name": "Shurochka",
+    "city": "Bangladesh"
+  },
+  {
+    "id": 3,
+    "email": "test@mail.ru",
+    "password": "333",
+    "name": "Test",
+    "city": "Testland"
+  }
+]

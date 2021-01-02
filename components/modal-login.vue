@@ -31,6 +31,9 @@
         type="submit"
         @click="submit"
       ) Вход
+
+      .modal-login__error(v-if="userFail") Такого пользователя нет
+      .modal-login__error(v-if="passwordFail") Пароль неверен
 </template>
 
 <script>
@@ -42,7 +45,9 @@ export default {
   data() {
     return {
       email: null,
-      password: null
+      password: null,
+      userFail: false,
+      passwordFail: false
     }
   },
 
@@ -61,10 +66,44 @@ export default {
       this.$v.$touch();
 
       if (!this.$v.$invalid) {
-        console.log('success!');
-      } else {
-        console.log('error');
+
+        if (this.userFail) {
+          this.userFail = false;
+        }
+
+        if (this.passwordFail) {
+          this.passwordFail = false;
+        }
+
+        this.login();
       }
+    },
+
+    async login() {
+      let users = new Set(
+          await fetch(
+          `${process.env.baseUrl}/data/users.json`
+        )
+        .then(resolve => resolve.json())
+      );
+
+      let currentUser = [...users].find(element => element.email === this.email);
+
+      if (!currentUser) {
+        this.userFail = true;
+        return;
+      }
+
+      if (currentUser.password !== this.password) {
+        this.passwordFail = true;
+        return;
+      }
+
+      this.$store.commit('login', currentUser);
+      this.$store.commit('toggleModal', {
+        name: 'loginModal',
+        value: false
+      });
     }
   },
 
@@ -101,6 +140,11 @@ export default {
     padding: 8px;
     background-color: $color-primary;
     color: $color-white;
+  }
+
+  &__error {
+    margin-top: 16px;
+    color: $color-error;
   }
 }
 </style>

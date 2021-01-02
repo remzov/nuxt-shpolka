@@ -24,11 +24,15 @@
         a.v-book__back(href="#" @click.prevent="routeBack")
           svg-icon.v-book__back-icon(name="arrow-left")
           | Назад
+      bookControl(
+        :bookId="book.id"
+      )
       .v-book__progress(data-progress-bar aria-hidden)
 </template>
 
 <script>
 import pageHeader from '~/components/page-header';
+import bookControl from '~/components/book-control';
 
 export default {
   async fetch() {
@@ -51,7 +55,8 @@ export default {
   },
 
   components: {
-    pageHeader
+    pageHeader,
+    bookControl
   }
 };
 </script>
@@ -112,6 +117,18 @@ export default {
     background-color: $color-decor;
     transform: scaleX(0);
     transform-origin: 0 50%;
+  }
+
+  .c-book-control {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: $color-white-lighter;
   }
 }
 </style>
