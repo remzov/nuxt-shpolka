@@ -23,7 +23,7 @@
               @click="showLoginModal"
               aria-label="User modal"
             )
-              svg-icon.c-main-header__menu-icon(name="user")
+              svg-icon.c-main-header__user-icon(name="user")
           template(v-else-if="currentUser")
             nuxt-link.c-main-header__user-account(
               to="/user"
@@ -218,6 +218,13 @@ export default {
   &__user-logout-icon {
     width: 16px;
     height: 16px;
+  }
+
+  &__user-icon {
+    display: block;
+    width: 30px;
+    height: 30px;
+    fill: $color-primary;
   }
 
   &__menu-icon {

@@ -1,39 +1,40 @@
 <template lang="pug">
   modal(name="loginModal")
     .modal-login
-      h2.modal-login__title Вход
+      form.modal-login__form
+        h2.modal-login__title Вход
 
-      field(
-        v-model="email"
-        @valueChanged="setEmail"
-        :isInvalid="$v.email.$invalid && $v.email.$dirty"
-        :type="'email'"
-        :isRequired="true"
-        :placeholder="'e-mail'"
-      )
-        template(v-if="$v.email.$dirty")
-          span(v-if="!$v.email.required") Требуется заполнить поле
-          span(v-if="!$v.email.email") Требуется ввести email
+        field(
+          v-model="email"
+          @valueChanged="setEmail"
+          :isInvalid="$v.email.$invalid && $v.email.$dirty"
+          :type="'email'"
+          :isRequired="true"
+          :placeholder="'e-mail'"
+        )
+          template(v-if="$v.email.$dirty")
+            span(v-if="!$v.email.required") Требуется заполнить поле
+            span(v-if="!$v.email.email") Требуется ввести email
 
-      field(
-        v-model="password"
-        @valueChanged="setPassword"
-        :isInvalid="$v.password.$invalid && $v.password.$dirty"
-        :type="'password'"
-        :isRequired="true"
-        :placeholder="'пароль'"
-      )
-        template(v-if="$v.password.$dirty")
-          span(v-if="!$v.password.required") Требуется заполнить поле
-          span(v-if="!$v.password.minLength") Требуется ввести не менее трёх знаков
+        field(
+          v-model="password"
+          @valueChanged="setPassword"
+          :isInvalid="$v.password.$invalid && $v.password.$dirty"
+          :type="'password'"
+          :isRequired="true"
+          :placeholder="'пароль'"
+        )
+          template(v-if="$v.password.$dirty")
+            span(v-if="!$v.password.required") Требуется заполнить поле
+            span(v-if="!$v.password.minLength") Требуется ввести не менее трёх знаков
 
-      button.modal-login__submit(
-        type="submit"
-        @click="submit"
-      ) Вход
+        button.modal-login__submit(
+          type="submit"
+          @click="submit"
+        ) Вход
 
-      .modal-login__error(v-if="userFail") Такого пользователя нет
-      .modal-login__error(v-if="passwordFail") Пароль неверен
+        .modal-login__error(v-if="userFail") Такого пользователя нет
+        .modal-login__error(v-if="passwordFail") Пароль неверен
 </template>
 
 <script>
