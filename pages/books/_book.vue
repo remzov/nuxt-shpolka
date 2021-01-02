@@ -25,6 +25,7 @@
           svg-icon.v-book__back-icon(name="arrow-left")
           | Назад
       bookControl(
+        v-if="book.id"
         :bookId="book.id"
       )
       .v-book__progress(data-progress-bar aria-hidden)
@@ -121,7 +122,7 @@ export default {
 
   .c-book-control {
     position: fixed;
-    bottom: 16px;
+    bottom: 56px;
     right: 16px;
     display: flex;
     align-items: center;
