@@ -1,32 +1,39 @@
 <template lang="pug">
-  .p-user(v-if="currentUser")
-    h1.p-user__title Личный кабинет
+  .p-user
+    template(v-if="currentUser")
+      h1.p-user__title Личный кабинет
 
-    table.p-user__data
-      tr
-        th Имя
-        th E-mail
-        th Город
-      tr
-        td {{currentUser.name}}
-        td {{currentUser.email}}
-        td {{currentUser.city}}
+      table.p-user__data
+        tr
+          th Имя
+          th E-mail
+          th Город
+        tr
+          td {{currentUser.name}}
+          td {{currentUser.email}}
+          td {{currentUser.city}}
 
-    h2.p-user__list-title Список для чтения
-    .p-user__list(v-if="readList.length > 0")
-      div(
-        v-for="(item, index) in readList"
-        :key="`books-${item}-${index}`"
-      )
-        c-book-card(
-          v-bind="item"
-          :isUserPage="true"
+      h2.p-user__list-title Список для чтения
+      .p-user__list(v-if="readList.length > 0")
+        div(
+          v-for="(item, index) in readList"
+          :key="`books-${item}-${index}`"
         )
-    .p-user__list-empty(v-else) Здесь пока ничего нет... Так добавь же!
+          c-book-card(
+            v-bind="item"
+            :isUserPage="true"
+          )
+      .p-user__list-empty(v-else)
+        | Здесь пока ничего нет... Так добавь же&nbsp;
+        nuxt-link(to="/books") тут
+        | !
+
+    .p-user__not-login(v-else) Необходимо войти в аккаунт!
 
 </template>
 
 <script>
+import getUserData from '~/mixins/getUserData';
 import CBookCard from '~/components/book-card.vue';
 import { mapGetters } from 'vuex';
 
@@ -44,13 +51,13 @@ export default {
     ])
   },
 
-  middleware: [
-    'auth'
-  ],
-
   components: {
     CBookCard
-  }
+  },
+
+  mixins: [
+    getUserData
+  ]
 }
 </script>
 

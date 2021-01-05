@@ -5,6 +5,7 @@
       :desc="homePage.desc"
     )
     blockquote.v-home__blockquote(
+      v-if="homePage.quoteBackgroundImage"
       :style="`background-image: url('${homePage.quoteBackgroundImage}')`"
     )
       span.v-home__blockquote-text
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+import getUserData from '~/mixins/getUserData';
 import pageHeader from '~/components/page-header';
 
 export default {
@@ -31,7 +33,11 @@ export default {
 
   components: {
     pageHeader
-  }
+  },
+
+  mixins: [
+    getUserData
+  ]
 };
 </script>
 

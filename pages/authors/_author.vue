@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import getUserData from '~/mixins/getUserData';
 import pageHeader from '~/components/page-header';
 import CBookCard from "~/components/book-card.vue";
 
@@ -33,7 +34,11 @@ export default {
     return {
       author: {}
     };
-  }
+  },
+
+  mixins: [
+    getUserData
+  ]
 };
 </script>
 

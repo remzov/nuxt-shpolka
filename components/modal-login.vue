@@ -81,14 +81,12 @@ export default {
     },
 
     async login() {
-      let users = new Set(
-          await fetch(
+      let users = await fetch(
           `${process.env.baseUrl}/data/users.json`
         )
         .then(resolve => resolve.json())
-      );
 
-      let currentUser = [...users].find(element => element.email === this.email);
+      let currentUser = users.find(element => element.email === this.email);
 
       if (!currentUser) {
         this.userFail = true;
@@ -100,7 +98,7 @@ export default {
         return;
       }
 
-      this.$store.commit('login', currentUser);
+      this.$store.dispatch('login', currentUser.id);
       this.$store.commit('toggleModal', {
         name: 'loginModal',
         value: false

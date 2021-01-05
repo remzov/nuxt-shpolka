@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import getUserData from '~/mixins/getUserData';
 import pageHeader from '~/components/page-header';
 import CBookCard from '~/components/book-card.vue';
 
@@ -145,7 +146,11 @@ export default {
       let sortFunction = this.sortDirection === 'asc' ? sortAsc : sortDesc;
       this.books = this.books.sort((a, b) => sortFunction(getField(a, type), getField(b, type)))
     }
-  }
+  },
+
+  mixins: [
+    getUserData
+  ]
 };
 </script>
 

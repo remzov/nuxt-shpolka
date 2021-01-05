@@ -18,6 +18,7 @@
       svg-icon.c-book-control__icon(name="close")
 
     .c-book-control__tooltip(
+      v-if="!isUserPage"
       ref="tooltip"
     )
       template(v-if="!currentUser") Нужно залогиниться, чтобы добавить книгу
@@ -37,7 +38,7 @@ export default {
       required: true
     },
 
-    isInCart: {
+    isUserPage: {
       type: Boolean,
       required: false,
       default: false
@@ -56,12 +57,17 @@ export default {
         this.$store.dispatch('addBook', this.bookId);
       }
 
-      this.handleTooltip();
+      if (!this.isUserPage) {
+        this.handleTooltip();
+      }
     },
 
     removeBook() {
       this.$store.commit('removeBook', this.bookId);
-      this.handleTooltip();
+
+      if (!this.isUserPage) {
+        this.handleTooltip();
+      }
     },
 
     handleTooltip() {

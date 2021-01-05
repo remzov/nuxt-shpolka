@@ -153,14 +153,14 @@ export default {
   }
 
   &__link {
-    display: block;
+    display: inline-block;
     text-transform: uppercase;
     text-decoration: none;
     font-size: 24px;
     line-height: 1.6;
     color: $color-primary;
 
-    &.router-link-exact-active {
+    &.nuxt-link-exact-active {
       color: $color-decor;
     }
   }
@@ -178,6 +178,7 @@ export default {
     z-index: 2;
     width: 30px;
     height: 30px;
+    cursor: pointer;
 
     &_state {
       &_active {

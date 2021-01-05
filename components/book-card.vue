@@ -21,7 +21,7 @@
 
     bookControl(
       :bookId="id"
-      :isRemoveType="isUserPage"
+      :isUserPage="isUserPage"
     )
 </template>
 

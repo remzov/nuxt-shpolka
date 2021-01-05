@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import getUserData from '~/mixins/getUserData';
 import pageHeader from '~/components/page-header';
 import bookControl from '~/components/book-control';
 
@@ -58,7 +59,11 @@ export default {
   components: {
     pageHeader,
     bookControl
-  }
+  },
+
+  mixins: [
+    getUserData
+  ]
 };
 </script>
 

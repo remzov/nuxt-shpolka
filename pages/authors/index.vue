@@ -17,6 +17,7 @@
 
 <script>
 import pageHeader from '~/components/page-header';
+import getUserData from '~/mixins/getUserData';
 
 export default {
   async fetch() {
@@ -41,7 +42,11 @@ export default {
 
   components: {
     pageHeader
-  }
+  },
+
+  mixins: [
+    getUserData
+  ]
 }
 </script>
 

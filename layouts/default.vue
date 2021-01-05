@@ -5,5 +5,6 @@
       <Nuxt/>
     </div>
     <ModalLogin/>
+    <Preloader/>
   </div>
 </template>

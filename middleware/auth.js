@@ -1,11 +1,5 @@
-export default function ({store, redirect}) {
+export default function ({store, dispatch}) {
   if (!store.state.currentUser) {
-    redirect('/');
+    store.dispatch('getAuthedUser');
   }
-
-  store.watch(() => store.getters.currentUser, () => {
-    if (!store.getters.currentUser) {
-      redirect('/');
-    }
-  })
 }
