@@ -21,9 +21,9 @@ export const actions = {
 
     if (window.localStorage.getItem('commonReadList')) {
       dispatch('setReadList');
+    } else {
+      commit('loaded');
     }
-
-    commit('loaded');
   },
 
   async setReadList({commit}) {
@@ -44,6 +44,7 @@ export const actions = {
     })
 
     commit('setReadList', readList);
+    commit('loaded');
   },
 
   async addBook({state, commit}, payload) {
@@ -118,7 +119,7 @@ export const mutations = {
 
     commonReadList.splice(
       commonReadList.indexOf(
-        commonReadList.find(item => item.bookId === payload)
+        commonReadList.find(item => item.bookid === payload)
       ), 1);
 
     window.localStorage.setItem('commonReadList', JSON.stringify(commonReadList));
