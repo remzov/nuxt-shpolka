@@ -1,5 +1,4 @@
 export const state = () => ({
-  loading: true,
   loginModal: false,
   currentUser: null,
   readList: []
@@ -22,7 +21,7 @@ export const actions = {
     if (window.localStorage.getItem('commonReadList')) {
       dispatch('setReadList');
     } else {
-      commit('loaded');
+      commit('loading/loaded', null, {root:true});
     }
   },
 
@@ -44,7 +43,7 @@ export const actions = {
     })
 
     commit('setReadList', readList);
-    commit('loaded');
+    commit('loading/loaded', null, {root:true});
   },
 
   async addBook({state, commit}, payload) {
@@ -61,10 +60,6 @@ export const actions = {
 }
 
 export const mutations = {
-  loaded(state) {
-    state.loading = false;
-  },
-
   toggleModal(state, payload) {
     state[payload.name] = payload.value
   },
@@ -129,5 +124,4 @@ export const mutations = {
 export const getters = {
   currentUser: (state) => state.currentUser,
   readList: (state) => state.readList,
-  loading: (state) => state.loading
 }

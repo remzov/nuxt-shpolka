@@ -65,14 +65,14 @@ export default {
     },
 
     showLoginModal() {
-      this.$store.commit('toggleModal', {
+      this.$store.commit('main/toggleModal', {
         name: 'loginModal',
         value: true
       })
     },
 
     logout() {
-      this.$store.commit('logout')
+      this.$store.commit('main/logout')
     }
   },
 
@@ -84,9 +84,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'currentUser'
-    ])
+    ...mapGetters({
+      currentUser: 'main/currentUser'
+    })
   }
 };
 </script>

@@ -54,7 +54,7 @@ export default {
   methods: {
     addBook() {
       if (this.currentUser) {
-        this.$store.dispatch('addBook', this.bookId);
+        this.$store.dispatch('main/addBook', this.bookId);
       }
 
       if (!this.isUserPage) {
@@ -63,7 +63,7 @@ export default {
     },
 
     removeBook() {
-      this.$store.commit('removeBook', this.bookId);
+      this.$store.commit('main/removeBook', this.bookId);
 
       if (!this.isUserPage) {
         this.handleTooltip();
@@ -81,10 +81,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'currentUser',
-      'readList'
-    ]),
+    ...mapGetters({
+      currentUser: 'main/currentUser',
+      readList: 'main/readList'
+    }),
 
     isInList() {
       return this.readList.find(item => item.id === this.bookId);

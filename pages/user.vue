@@ -45,10 +45,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'currentUser',
-      'readList'
-    ])
+    ...mapGetters({
+      currentUser: 'main/currentUser',
+      readList: 'main/readList'
+    })
   },
 
   components: {

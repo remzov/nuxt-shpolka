@@ -1,9 +1,9 @@
 export default {
   mounted() {
-    if (!this.$store.state.currentUser && window.localStorage.getItem('currentUserId')) {
-      this.$store.dispatch('getUserData');
+    if (!this.$store.state.main.currentUser && window.localStorage.getItem('currentUserId')) {
+      this.$store.dispatch('main/getUserData');
     } else {
-      this.$store.commit('loaded');
+      this.$store.commit('loading/loaded');
     }
   }
 }

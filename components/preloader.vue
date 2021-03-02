@@ -9,9 +9,9 @@ import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters([
-      'loading',
-    ])
+    ...mapGetters({
+      loading: 'loading/loading',
+    })
   },
 }
 </script>

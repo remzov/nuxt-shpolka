@@ -26,10 +26,10 @@ export default {
   computed: {
     isShown: {
       get () {
-        return this.$store.state[this.name];
+        return this.$store.state.main[this.name];
       },
       set (value) {
-        this.$store.commit('toggleModal', {
+        this.$store.commit('main/toggleModal', {
           name: this.name,
           value
         })
@@ -39,7 +39,7 @@ export default {
 
   methods: {
     closeModal() {
-      this.$store.commit('closeModal')
+      this.$store.commit('main/closeModal')
     }
   }
 }

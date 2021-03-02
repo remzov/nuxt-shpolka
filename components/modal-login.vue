@@ -98,8 +98,8 @@ export default {
         return;
       }
 
-      this.$store.dispatch('login', currentUser.id);
-      this.$store.commit('toggleModal', {
+      this.$store.dispatch('main/login', currentUser.id);
+      this.$store.commit('main/toggleModal', {
         name: 'loginModal',
         value: false
       });
